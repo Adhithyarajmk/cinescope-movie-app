@@ -1,5 +1,6 @@
 
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { FavoritesProvider } from "./context/FavoriteContext";
 
 import Home from "./pages/Home";
 import MovieDetails from "./pages/MovieDetails";
@@ -8,6 +9,7 @@ import NotFound from "./pages/NotFound";
 
 function App() {
   return (
+    <FavoritesProvider>
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Home />} />
@@ -16,6 +18,7 @@ function App() {
         <Route path="*" element={<NotFound />} />
       </Routes>
     </BrowserRouter>
+    </FavoritesProvider>
   );
 }
 

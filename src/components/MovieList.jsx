@@ -74,7 +74,10 @@ function MovieList() {
   }, [search]);
 
   return (
-    <section className="px-8 py-16 md:px-16">
+    <section
+  id="movies"
+  className="px-4 py-10 sm:px-6 sm:py-12 lg:px-16 lg:py-16"
+>
 
       {/* Heading */}
       <div className="mb-8">
@@ -137,7 +140,7 @@ function MovieList() {
       {/* Movie Grid */}
       {!loading && !error && (
         movies.length > 0 ? (
-          <div className="grid grid-cols-2 gap-5 sm:grid-cols-3 lg:grid-cols-5">
+          <div className="grid grid-cols-2 gap-3 min-[480px]:gap-4 sm:grid-cols-3 sm:gap-5 lg:grid-cols-4 xl:grid-cols-5">
 
         
 {movies.map((movie) => (
