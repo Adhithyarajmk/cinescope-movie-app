@@ -32,3 +32,35 @@ export async function searchMovies(query) {
 
   return data.results;
 }
+
+// Fetch movie trailers
+export async function getMovieTrailers(movieId) {
+  const response = await fetch(
+    `${BASE_URL}/movie/${movieId}/videos?api_key=${API_KEY}&language=en-US`
+  );
+
+  if (!response.ok) {
+    throw new Error("Failed to fetch movie trailers");
+  }
+
+  const data = await response.json();
+
+  // Find a YouTube trailer
+  const trailer = data.results.find(
+    (video) =>
+      video.site === "YouTube" &&
+      video.type === "Trailer" &&
+      video.official === true
+  );
+
+  // If no official trailer exists, find any YouTube trailer
+  if (!trailer) {
+    return data.results.find(
+      (video) =>
+        video.site === "YouTube" &&
+        video.type === "Trailer"
+    ) || null;
+  }
+
+  return trailer;
+}

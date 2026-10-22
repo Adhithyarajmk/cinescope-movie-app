@@ -11,6 +11,28 @@ function MovieList() {
   const [search, setSearch] = useState("");
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
+  const [selectedGenre, setSelectedGenre] = useState("All");
+
+  const genres = [
+  { id: 28, name: "Action" },
+  { id: 12, name: "Adventure" },
+  { id: 16, name: "Animation" },
+  { id: 35, name: "Comedy" },
+  { id: 80, name: "Crime" },
+  { id: 18, name: "Drama" },
+  { id: 14, name: "Fantasy" },
+  { id: 27, name: "Horror" },
+  { id: 10749, name: "Romance" },
+  { id: 878, name: "Science Fiction" },
+  { id: 53, name: "Thriller" },
+];
+
+const filteredMovies = movies.filter((movie) => {
+  return (
+    selectedGenre === "All" ||
+    movie.genre_ids?.includes(Number(selectedGenre))
+  );
+});
 
   // Fetch popular movies when the page loads
   useEffect(() => {
@@ -115,6 +137,41 @@ function MovieList() {
         )}
 
       </div>
+      {/* Genre Filter */}
+
+<div className="mb-8 flex flex-wrap items-center gap-3">
+  <label htmlFor="genre" className="text-sm font-medium text-gray-300">
+    Filter by Genre:
+  </label>
+
+<select
+id="genre"
+value={selectedGenre}
+onChange={(event) => setSelectedGenre(event.target.value)}
+className="rounded-lg border border-white/10 bg-[#10182A] px-4 py-3 text-white outline-none transition focus:border-blue-500"
+
+>
+
+
+<option value="All">All Genres</option>
+
+{genres.map((genre) => (
+  <option key={genre.id} value={genre.id}>
+    {genre.name}
+  </option>
+))}
+
+  </select>
+
+{selectedGenre !== "All" && (
+<button
+onClick={() => setSelectedGenre("All")}
+className="text-sm text-blue-400 transition hover:text-blue-300"
+>
+Reset </button>
+)}
+
+</div>
 
       {/* Loading */}
       {loading && (
@@ -139,11 +196,11 @@ function MovieList() {
 
       {/* Movie Grid */}
       {!loading && !error && (
-        movies.length > 0 ? (
+        filteredMovies.length > 0 ? (
           <div className="grid grid-cols-2 gap-3 min-[480px]:gap-4 sm:grid-cols-3 sm:gap-5 lg:grid-cols-4 xl:grid-cols-5">
 
         
-{movies.map((movie) => (
+{filteredMovies.map((movie) => (
   <MovieCard
     key={movie.id}
     id={movie.id}

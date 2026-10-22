@@ -13,7 +13,7 @@ return ( <nav className="flex w-full items-center justify-between border-b borde
    >
 Cine<span className="text-blue-400">Scope</span> </Link>
   {/* Navigation Links */}
-  <div className="flex items-center gap-4 text-sm sm:gap-6 md:gap-8">
+  <div className="flex items-center gap-4 text-xl sm:gap-6 md:gap-8">
     <NavLink to="/" end className={linkClass}>
       Home
     </NavLink>
